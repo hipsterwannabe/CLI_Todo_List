@@ -32,6 +32,8 @@ do {
         $key = ((trim(fgets(STDIN))) - 1);
         // Remove from array
         unset($items[$key]);
+        // adjusts item numbers in list after deletion
+        $items = array_values($items);
     }
 // Exit when input is (Q)uit
 } while (!($input == 'Q' || $input == 'q'));
