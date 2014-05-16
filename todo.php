@@ -5,10 +5,12 @@ $items = array();
 
 // List array items formatted for CLI
 function list_items($items){
-    
+    $result = '';
     foreach ($items as $key => $item) {
-        return '[{$key}] {$item}';
+        $key++;
+        $result .= "[" . $key . "]" . " " . $item . PHP_EOL;
     }
+    return $result;
     // Return string of list items separated by newlines.
     // Should be listed [KEY] Value like this:
     // [1] TODO item 1
@@ -27,12 +29,9 @@ function get_input($upper = false)
 // The loop!
 do {
     // Iterate through list items
-    foreach ($items as $key => $item) {
-        // Display each item and a newline
-        $key++;
-        echo "[{$key}] {$item}\n";
-    }
+    echo list_items($items);
 
+    
     // Show the menu options
     echo '(N)ew item, (R)emove item, (Q)uit : ';
 
