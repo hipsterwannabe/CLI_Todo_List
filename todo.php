@@ -3,6 +3,27 @@
 // Create array to hold list of todo items
 $items = array();
 
+// List array items formatted for CLI
+function list_items($items){
+    
+    foreach ($items as $key => $item) {
+        return '[{$key}] {$item}';
+    }
+    // Return string of list items separated by newlines.
+    // Should be listed [KEY] Value like this:
+    // [1] TODO item 1
+    // [2] TODO item 2 - blah
+    // DO NOT USE ECHO, USE RETURN
+}
+
+// Get STDIN, strip whitespace and newlines, 
+// and convert to uppercase if $upper is true
+function get_input($upper = false) 
+{   // Return filtered STDIN input
+    $result = trim(fgets(STDIN));
+    return $upper ? strtoupper($result) : $result;
+}
+
 // The loop!
 do {
     // Iterate through list items
@@ -17,26 +38,26 @@ do {
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
-    $input = trim(fgets(STDIN));
+    $input = get_input(TRUE);
 
     // Check for actionable input
-    if ($input == 'N' || $input == 'n') {
+    if ($input == 'N') {
         // Ask for entry
         echo 'Enter item: ';
         // Add entry to list array
-        $items[] = trim(fgets(STDIN));
-    } elseif ($input == 'R' || $input == 'r') {
+        $items[] = get_input();
+    } elseif ($input == 'R') {
         // Remove which item?
         echo 'Enter item number to remove: ';
         // Get array key
-        $key = ((trim(fgets(STDIN))) - 1);
+        $key = (get_input()) - 1;
         // Remove from array
         unset($items[$key]);
         // adjusts item numbers in list after deletion
         $items = array_values($items);
     }
 // Exit when input is (Q)uit
-} while (!($input == 'Q' || $input == 'q'));
+} while (!($input == 'Q'));
 
 // Say Goodbye!
 echo "Goodbye!\n";
