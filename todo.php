@@ -47,10 +47,10 @@ function sort_menu($items) {
     // Sort menu as switch
     switch ($input) {
         case 'A':
-            sort($items, SORT_NATURAL | SORT_FLAG_CASE);
+            asort($items, SORT_NATURAL | SORT_FLAG_CASE);
             break;
         case 'Z':
-            rsort($items, SORT_NATURAL | SORT_FLAG_CASE);
+            arsort($items, SORT_NATURAL | SORT_FLAG_CASE);
             break;
         case 'O':
             ksort($items, SORT_NATURAL |SORT_FLAG_CASE);
@@ -89,7 +89,6 @@ do {
         // Remove from array
         unset($items[$key]);
         // adjusts item numbers in list after deletion
-        $items = array_values($items);
     } elseif ($input == 'S'){
         $items = sort_menu($items);
         
