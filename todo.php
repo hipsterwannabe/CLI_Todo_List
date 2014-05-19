@@ -7,8 +7,8 @@ $items = array();
 function list_items($items){
     $result = '';
     foreach ($items as $key => $item) {
-        $key++;
-        $result .= "[" . $key . "]" . " " . $item . PHP_EOL;
+        
+        $result .= "[" . ($key + 1). "]" . " " . $item . PHP_EOL;
     }
     return $result;
     // Return string of list items separated by newlines.
@@ -26,6 +26,42 @@ function get_input($upper = false)
     return $upper ? strtoupper($result) : $result;
 }
 
+// Function to sort menu by user preference
+function sort_menu($items) {
+    
+    echo 'Sort by: (A)-Z, (Z)-A, (O)rder entered, (R)everse order entered : ';
+    $input = get_input(TRUE);
+
+
+    // Sort menu as if
+    // if ($input == 'A') {
+    //     sort($items);
+    // } elseif ($input == 'Z') {
+    //     rsort($items);
+    // } elseif ($input == 'O') {
+    //     ksort($items);
+    // } elseif ($input == 'R') {
+    //     krsort($items);
+    // }
+
+    // Sort menu as switch
+    switch ($input) {
+        case 'A':
+            sort($items, SORT_NATURAL | SORT_FLAG_CASE);
+            break;
+        case 'Z':
+            rsort($items, SORT_NATURAL | SORT_FLAG_CASE);
+            break;
+        case 'O':
+            ksort($items, SORT_NATURAL |SORT_FLAG_CASE);
+            break;
+        case 'R':
+            krsort($items, SORT_NATURAL | SORT_FLAG_CASE);
+            break;
+    }
+    return $items;
+}
+
 // The loop!
 do {
     // Iterate through list items
@@ -33,7 +69,7 @@ do {
 
     
     // Show the menu options
-    echo '(N)ew item, (R)emove item, (Q)uit : ';
+    echo '(N)ew item, (R)emove item, (S)ort list, (Q)uit : ';
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
@@ -54,6 +90,9 @@ do {
         unset($items[$key]);
         // adjusts item numbers in list after deletion
         $items = array_values($items);
+    } elseif ($input == 'S'){
+        $items = sort_menu($items);
+        
     }
 // Exit when input is (Q)uit
 } while (!($input == 'Q'));
