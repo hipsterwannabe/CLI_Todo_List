@@ -89,6 +89,8 @@ do {
             array_unshift($items, $temp);
         } elseif ($input == 'E') {
             array_push($items, $temp);
+        } else{
+            array_push($items, $temp);
         }
     } elseif ($input == 'R') {
         // Remove which item?
