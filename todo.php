@@ -81,7 +81,7 @@ do {
         echo 'Enter item: ';
         // add option to add item to beginning or end of list
         // Add entry to list array
-        $temp = get_input(TRUE);
+        $temp = get_input();
         echo 'Would you like this item at the (B)eginning or the (E)nd of your list? ';
         // shift or unshift item depending on input
         $input = get_input(TRUE);
@@ -108,7 +108,7 @@ do {
     }
 
 // Exit when input is (Q)uit
-} while (!($input == 'Q'));
+} while ($input != 'Q');
 
 // Say Goodbye!
 echo "Goodbye!\n";
