@@ -62,6 +62,15 @@ function sort_menu($items) {
     return $items;
 }
 
+function read_file() {
+    echo 'Enter file name/path: ';
+    $filename = get_input();
+    // $handle is pointer to file
+    $handle = fopen($filename, 'r');
+    $contents = fread($handle, filesize($filename));
+    return $contents;
+    fclose($handle);
+}
 // The loop!
 do {
     // Iterate through list items
@@ -69,7 +78,7 @@ do {
 
     
     // Show the menu options
-    echo '(N)ew item, (R)emove item, (S)ort list, (Q)uit : ';
+    echo '(N)ew item, (R)emove item, (S)ort list, (O)pen File, (Q)uit : ';
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
@@ -106,6 +115,12 @@ do {
         array_shift($items);
     } elseif ($input == 'L') {
         array_pop($items);
+    } elseif ($input == 'O') {
+        //opens file given by user
+        $contents = read_file();
+        //explode string into array
+        $content_array = explode("\n", $contents);
+        $items = array_merge($items, $content_array);
 
     }
 
