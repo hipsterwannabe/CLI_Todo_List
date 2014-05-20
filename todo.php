@@ -79,8 +79,17 @@ do {
     if ($input == 'N') {
         // Ask for entry
         echo 'Enter item: ';
+        // add option to add item to beginning or end of list
         // Add entry to list array
-        $items[] = get_input();
+        $temp = get_input(TRUE);
+        echo 'Would you like this item at the (B)eginning or the (E)nd of your list? ';
+        // shift or unshift item depending on input
+        $input = get_input(TRUE);
+        if ($input == 'B') {
+            array_unshift($items, $temp);
+        } elseif ($input == 'E') {
+            array_push($items, $temp);
+        }
     } elseif ($input == 'R') {
         // Remove which item?
         echo 'Enter item number to remove: ';
@@ -91,8 +100,13 @@ do {
         // adjusts item numbers in list after deletion
     } elseif ($input == 'S'){
         $items = sort_menu($items);
-        
+    } elseif ($input == 'F') {
+        array_shift($items);
+    } elseif ($input == 'L') {
+        array_pop($items);
+
     }
+
 // Exit when input is (Q)uit
 } while (!($input == 'Q'));
 
