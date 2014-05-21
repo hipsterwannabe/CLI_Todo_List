@@ -53,7 +53,7 @@ function sort_menu($items) {
             arsort($items, SORT_NATURAL | SORT_FLAG_CASE);
             break;
         case 'O':
-            ksort($items, SORT_NATURAL |SORT_FLAG_CASE);
+            ksort($items, SORT_NATURAL | SORT_FLAG_CASE);
             break;
         case 'R':
             krsort($items, SORT_NATURAL | SORT_FLAG_CASE);
@@ -71,6 +71,19 @@ function read_file() {
     return $contents;
     fclose($handle);
 }
+
+function save_file($items) {
+    echo 'Enter file location to save: ';
+    // When s(A)ve is chosen, the user should be able to enter the path to a file to have it save. 
+    // Use fwrite() with the mode that starts at the beginning of a file and removes all the file 
+    // contents, or creates a new one if it does not exist. 
+    // After save, alert the user the save was successful and redisplay the list and main menu.
+    $filename = get_input(false);
+    $filecontents = implode(PHP_EOL, $items);
+    $handle = fopen($filename, 'w');
+    fwrite($handle, $filecontents);
+    fclose($handle);
+}
 // The loop!
 do {
     // Iterate through list items
@@ -78,7 +91,7 @@ do {
 
     
     // Show the menu options
-    echo '(N)ew item, (R)emove item, (S)ort list, (O)pen File, (Q)uit : ';
+    echo '(N)ew item, (R)emove item, (S)ort list, (O)pen File, s(A)ve File, (Q)uit : ';
 
     // Get the input from user
     // Use trim() to remove whitespace and newlines
@@ -121,7 +134,8 @@ do {
         //explode string into array
         $content_array = explode("\n", $contents);
         $items = array_merge($items, $content_array);
-
+    } elseif ($input == 'A') {
+        save_file($items);
     }
 
 // Exit when input is (Q)uit
